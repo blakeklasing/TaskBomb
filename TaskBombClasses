@@ -1,0 +1,56 @@
++ => needs to have this
+- => consider adding
+* => what about...?
+
+----------------------------------------------------------
+Task - a single event the user sets to be notified about
+----------------------------------------------------------
++Must have a BroadcastReceiver
+  |
+  ----> +Must override onReceive 
+  ----> +On receive should check if the current fire time is the current system time and call the alarm class' fireAlarm method
+  ----> +Setting the task inactive should unregister the BroadcastReceiver, setting it active should register it	
++Must have a list of Time objects that are when the alarm should fire
++Must switch the current fire time to the next fire time in the list upon an alarm being fired
+
+-able to get time remaing till next alarm
+-anything else deemed helpful
+
+----------------------------------------------------------
+TaskHandler - holder for all Tasks
+----------------------------------------------------------
++Must have a list of current tasks (see *)
++Must have ability to add and remove tasks from the list
++Must have press and hold functionality for editing the alarm.
+
+-simple useful information
+
+*Seems like it should maybe even be a list of a special class that contain a Task, text string, and on/off switch, etc. This would make it easy and clean to relate a particular on/off switch to a particular class. That way hopefully we can say something like "ListItem.OnSwitchClicked(){ListItem.GetTask().ToggleActive();} TL;DR The list items should probably be objects themselves.
+
+----------------------------------------------------------
+Actions
+----------------------------------------------------------
++Must have all flags for all operations we want to be able to do
+
+*probably easiest to just make a class of a lot of public member variables. The class would be nothing but getters and setters otherwise
+
+----------------------------------------------------------
+Alarm
+----------------------------------------------------------
++Must have fire alarm member function
+  |
+  ----> +fire alarm function should take an Actions variable
+  ----> +fire alarm should return an ALARM_OK or ALARM_SNOOZE value
+
+*should probably be static/singleton
+*I'm also worried about alarms set for the same time. If anyone could think of a way to maybe add the alarms to a queue that's thread safe we should give it a shot, but sounds like it's gonna be too much. I tried it on my phone and one alarm goes off and the other automatically gets put into snooze...strange. Worst comes to worst we just wouldn't implement it. After all, it's the users fault for not just setting one alarm for two events. TL;DR 8========D ~~~ (.Y.)
+
+----------------------------------------------------------
+Settings
+----------------------------------------------------------
+-Maybe a global settings class for the app. Could atleast contain the sort functionality.
+
+----------------------------------------------------------
+Compare Classes
+----------------------------------------------------------
+-Maybe have a bunch of classes that define how to sort our different tasks.
